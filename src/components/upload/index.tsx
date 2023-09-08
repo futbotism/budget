@@ -37,6 +37,8 @@ function Upload() {
 
         // Iterating data to get column name and their values
         results.data.map((d) => {
+          
+
           rowsArray.push(Object.keys(d));
           valuesArray.push(Object.values(d));
         });
