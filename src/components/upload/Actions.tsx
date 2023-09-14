@@ -1,7 +1,9 @@
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot'
 import CloudSyncIcon from '@mui/icons-material/CloudSync'
 import { Button, styled, css } from '@mui/material'
-import { useExpenses } from 'state/expenses'
+import { useChecked } from 'state/transactoins'
+import { useRecoilValue } from 'recoil'
+import { getTransactionList } from 'state'
 
 const VisuallyHiddenInput = styled('input')`
   clip: rect(0 0 0 0);
@@ -26,10 +28,11 @@ type Props = {
 }
 
 function Actions({ onChange }: Props) {
-  const { addRows } = useExpenses()
+  const { addRows } = useChecked()
+  const transactionList = useRecoilValue(getTransactionList)
 
   const upload = () => {
-    addRows([])
+    addRows(transactionList)
   }
 
   return (

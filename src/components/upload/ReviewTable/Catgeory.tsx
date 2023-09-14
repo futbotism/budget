@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
-import { useTransactions } from 'state'
+import { useUnchecked } from 'state'
 import { Catgeories, catergoyList } from 'types'
 import { memo } from 'react';
 
@@ -8,7 +8,7 @@ export const Catgeory = memo(function Catgeory({ id, category }: {
     category: Catgeories | '',
 }) {
 
-    const { updateTransactionCategory } = useTransactions()
+    const { updateTransactionCategory } = useUnchecked()
 
     const handleChange = (event: SelectChangeEvent) => {
         updateTransactionCategory(id, event.target.value as Catgeories)
@@ -19,11 +19,9 @@ export const Catgeory = memo(function Catgeory({ id, category }: {
             <InputLabel id="demo-simple-select-label">Age</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
                 value={category}
                 label="Age"
-                onChange={handleChange}
-            >
+                onChange={handleChange}>
                 {catergoyList.map(category => <MenuItem key={category} value={category}>{category}</MenuItem>)}
             </Select>
         </FormControl>

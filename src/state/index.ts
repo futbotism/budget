@@ -1,2 +1,2 @@
-export * from './transactions'
+export * from './transactoins'
 export * from './auth'

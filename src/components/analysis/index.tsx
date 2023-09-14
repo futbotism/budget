@@ -1,8 +1,12 @@
-import { ThemeProvider, createTheme } from '@mui/material'
+import { useRecoilValue } from 'recoil'
+import { ExpensesAtom } from 'state/transactoins'
 
 function Analysis() {
+  const expenses = useRecoilValue(ExpensesAtom)
   return (
-    <p>ss</p>
+    <main>
+      {expenses.map(expense => <p key={expense.id}>{expense.narrative}</p>)}
+    </main>
   )
 }
 

@@ -7,4 +7,4 @@ export interface Transaction {
     type: string,
     date: string,
     narrative: string,
-  }
+}

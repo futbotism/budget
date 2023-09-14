@@ -1,10 +1,7 @@
 import { css } from '@mui/material';
 import { Container } from 'components/shared';
 import Papa from 'papaparse';
-import { useRecoilValue } from 'recoil';
-import { Transaction } from 'state';
-import { docInfoAtom } from 'state/expenses';
-import { useTransactions } from 'state/transactions/use-transactions';
+import { Transaction, useUnchecked } from 'state';
 import { theme } from 'theme';
 import Actions from './Actions';
 import { ReviewTable } from './ReviewTable';
@@ -29,14 +26,9 @@ interface WestpacDataRow {
   ['Serial']: string
 }
 
-
-
 function Upload() {
   // State to store parsed data
-  const { setTransactions } = useTransactions()
-
-  const docInfo = useRecoilValue(docInfoAtom)
-  console.log(docInfo)
+  const { setTransactions } = useUnchecked()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (event: any) => {
