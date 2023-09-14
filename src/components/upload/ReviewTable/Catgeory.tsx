@@ -1,24 +1,32 @@
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
-import React from 'react'
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
+import { useTransactions } from 'state'
 import { Catgeories, catergoyList } from 'types'
+import { memo } from 'react';
 
-type Props = {}
+export const Catgeory = memo(function Catgeory({ id, category }: {
+    id: string,
+    category: Catgeories | '',
+}) {
 
-function Catgeory({ }: Props) {
+    const { updateTransactionCategory } = useTransactions()
+
+    const handleChange = (event: SelectChangeEvent) => {
+        updateTransactionCategory(id, event.target.value as Catgeories)
+    };
+
     return (
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Age</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={undefined}
+                value={category}
                 label="Age"
-                // onChange={handleChange}
+                onChange={handleChange}
             >
                 {catergoyList.map(category => <MenuItem key={category} value={category}>{category}</MenuItem>)}
             </Select>
         </FormControl>
     )
-}
+})
 
-export default Catgeory

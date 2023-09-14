@@ -1,6 +1,7 @@
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
-import CloudSyncIcon from '@mui/icons-material/CloudSync';
-import { Button, styled, css } from '@mui/material';
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot'
+import CloudSyncIcon from '@mui/icons-material/CloudSync'
+import { Button, styled, css } from '@mui/material'
+import { useExpenses } from 'state/expenses'
 
 const VisuallyHiddenInput = styled('input')`
   clip: rect(0 0 0 0);
@@ -20,32 +21,39 @@ const style = css({
 })
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (event: any) => void
 }
 
 function Actions({ onChange }: Props) {
+  const { addRows } = useExpenses()
+
+  const upload = () => {
+    addRows([])
+  }
+
   return (
     <aside css={style}>
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<TroubleshootIcon />}
-          onChange={onChange}
-          href="#file-upload">
-          Upload a file
-          <VisuallyHiddenInput type="file" />
-        </Button>
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<TroubleshootIcon />}
+        onChange={onChange}
+        href="#file-upload"
+      >
+        Upload a file
+        <VisuallyHiddenInput type="file" />
+      </Button>
 
-        <Button
-          component="label"
-          variant="contained"
-          color='secondary'
-          startIcon={<CloudSyncIcon />}
-          onChange={onChange}
-          href="#file-upload">
-          Submit
-          <VisuallyHiddenInput type="file" />
-        </Button>
+      <Button
+        component="label"
+        variant="contained"
+        color="secondary"
+        startIcon={<CloudSyncIcon />}
+        onClick={upload}
+      >
+        Submit
+      </Button>
     </aside>
   )
 }

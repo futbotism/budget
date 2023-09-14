@@ -31,7 +31,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "sheets-database": "^1.0.4"
+    "recoil": "^0.7.7",
+    "sheetdb-js": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",

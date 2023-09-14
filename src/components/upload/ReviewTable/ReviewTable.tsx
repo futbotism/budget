@@ -1,19 +1,26 @@
+import { Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Catgeory from './Catgeory';
+import { useRecoilValue } from 'recoil';
+import { getTransactionList } from 'state';
+import { Catgeory } from './Catgeory';
 
-type Props = {
-    rows: any[],
-    columns: any[]
-}
+type Props = {}
 
-export function ReviewTable({ rows, columns }: Props) {
-    console.log(rows)
+export function ReviewTable({}: Props) {
+    const transactionList = useRecoilValue(getTransactionList);
+
+    if (!transactionList.length) {
+        return (
+            <Typography>No Data</Typography>
+        )
+    }
+
     return (
         <TableContainer style={{
             maxHeight: '100%'
@@ -21,15 +28,23 @@ export function ReviewTable({ rows, columns }: Props) {
             <Table stickyHeader aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        {columns.map(column => <TableCell key={column}>{column}</TableCell>)}
-                        <TableCell>Category</TableCell>
+                        {/* <TableCell>id</TableCell> */}
+                        <TableCell>date</TableCell>
+                        <TableCell>debit</TableCell>
+                        <TableCell>narrative</TableCell>
+                        <TableCell>type</TableCell>
+                        <TableCell width={300}>Category</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => <TableRow>
-                        {row.map((r: any) => <TableCell>{r}</TableCell>)}
+                    {transactionList.map(row => <TableRow key={row.id}>
+                        {/* <TableCell>{row.id}</TableCell> */}
+                        <TableCell>{row.date}</TableCell>
+                        <TableCell>{row.debit}</TableCell>
+                        <TableCell>{row.narrative}</TableCell>
+                        <TableCell>{row.type}</TableCell>
                         <TableCell>
-                            <Catgeory/>
+                            <Catgeory category={row.category || ''} id={row.id!}/>
                         </TableCell>
                     </TableRow>)}
                 </TableBody>

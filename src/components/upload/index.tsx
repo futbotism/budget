@@ -1,10 +1,13 @@
 import { css } from '@mui/material';
 import { Container } from 'components/shared';
 import Papa from 'papaparse';
-import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { Transaction } from 'state';
+import { docInfoAtom } from 'state/expenses';
+import { useTransactions } from 'state/transactions/use-transactions';
+import { theme } from 'theme';
 import Actions from './Actions';
 import { ReviewTable } from './ReviewTable';
-import { theme } from 'theme';
 
 const styles = css({
   display: 'grid',
@@ -12,47 +15,56 @@ const styles = css({
   gridTemplateRows: 'auto 1fr',
   height: '100%',
   justifyItems: 'stretch',
-  alignItems: 'center'
+  alignItems: 'start'
 })
+
+interface WestpacDataRow {
+  ['Balance']: string,
+  ['Bank Account']: string,
+  ['Categories']: string,
+  ['Credit Amount']: string,
+  ['Date']: string,
+  ['Debit Amount']: string,
+  ['Narrative']: string,
+  ['Serial']: string
+}
+
+
 
 function Upload() {
   // State to store parsed data
-  const [parsedData, setParsedData] = useState<any[]>([]);
+  const { setTransactions } = useTransactions()
 
-  //State to store table Column name
-  const [tableRows, setTableRows] = useState<any[]>([]);
+  const docInfo = useRecoilValue(docInfoAtom)
+  console.log(docInfo)
 
-  //State to store the values
-  const [values, setValues] = useState<any[]>([]);
-
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (event: any) => {
     // Passing file data (event.target.files[0]) to parse using Papa.parse
-    Papa.parse(event.target.files[0], {
+    Papa.parse<WestpacDataRow>(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
       complete: function (results) {
-        const rowsArray: any[] = [];
-        const valuesArray: any[] = [];
 
         // Iterating data to get column name and their values
-        results.data.map((d) => {
-          
-
-          rowsArray.push(Object.keys(d));
-          valuesArray.push(Object.values(d));
-        });
-
-        debugger
-
-        // Parsed Data Response in array format
-        setParsedData(results.data);
-
-        // Filtered Column Names
-        setTableRows(rowsArray[0]);
-
-        // Filtered Values
-        setValues(valuesArray);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setTransactions(results.data.reduce((prev: any, row) => {
+          const transaction: Transaction = {
+            date: row['Date'],
+            debit: row['Debit Amount'],
+            narrative: row['Narrative'],
+            type: row['Categories'],
+          }
+          const id = btoa(JSON.stringify(transaction))
+          prev[id] = {
+            id,
+            date: row['Date'],
+            debit: row['Debit Amount'],
+            narrative: row['Narrative'],
+            type: row['Categories'],
+          }
+          return prev;
+        }, {}))
       },
     });
 
@@ -61,8 +73,8 @@ function Upload() {
   return (
     <Container>
       <div css={styles}>
-        <Actions onChange={onChange}/>
-        <ReviewTable columns={tableRows} rows={values} />
+        <Actions onChange={onChange} />
+        <ReviewTable/>
       </div>
     </Container>
   )
