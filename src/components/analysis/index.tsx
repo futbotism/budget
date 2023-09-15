@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil'
-import { ExpensesAtom } from 'state/transactoins'
+import { getCheckedTransactionList } from 'state'
 
 function Analysis() {
-  const expenses = useRecoilValue(ExpensesAtom)
+  const transactions = useRecoilValue(getCheckedTransactionList)
   return (
     <main>
-      {expenses.map(expense => <p key={expense.id}>{expense.narrative}</p>)}
+      {transactions.map(expense => <p key={expense.id}>{expense.narrative}</p>)}
     </main>
   )
 }

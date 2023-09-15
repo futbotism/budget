@@ -1,14 +1,13 @@
 import { useSetRecoilState } from "recoil";
-import { ExpensesAtom } from "./atoms";
+import { checkedTranastionsAtom } from "./atoms";
 import { Transaction } from "./interface";
 
 export function useChecked() {
-  const setTransactions = useSetRecoilState(ExpensesAtom)
+  const setTransactions = useSetRecoilState(checkedTranastionsAtom)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const addRows = (data: Transaction[]) => {
-    debugger
-    const url = 'https://sheetdb.io/api/v1/ppx4v32es5kzo';
+    const url = 'https://sheetdb.io/api/v1/ppx4v32es5kzo?sheet=data';
     fetch(url, {
       method: 'POST',
       headers: {
@@ -22,9 +21,16 @@ export function useChecked() {
   }
 
   const getRows = () => {
-    fetch('https://sheetdb.io/api/v1/ppx4v32es5kzo')
-    .then((response) => response.json())
-      .then((data) => setTransactions(data))
+    fetch('https://sheetdb.io/api/v1/ppx4v32es5kzo?sheet=data')
+      .then((response) => response.json())
+      .then((data: Transaction[]) => setTransactions(data
+        .reduce((previous: any, current) => {
+          if (current.id) {
+            previous[current.id] = current
+          }
+          return previous
+        }, {})
+      ))
   }
 
   return {

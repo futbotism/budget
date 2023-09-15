@@ -1,13 +1,15 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
-import { useUnchecked } from 'state'
-import { Catgeories, catergoyList } from 'types'
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { memo } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useUnchecked } from 'state';
+import { categoryAtom } from 'state';
+import { Catgeories } from 'types';
 
 export const Catgeory = memo(function Catgeory({ id, category }: {
     id: string,
     category: Catgeories | '',
 }) {
-
+    const categories = useRecoilValue(categoryAtom)
     const { updateTransactionCategory } = useUnchecked()
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -22,7 +24,7 @@ export const Catgeory = memo(function Catgeory({ id, category }: {
                 value={category}
                 label="Age"
                 onChange={handleChange}>
-                {catergoyList.map(category => <MenuItem key={category} value={category}>{category}</MenuItem>)}
+                {categories.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)}
             </Select>
         </FormControl>
     )

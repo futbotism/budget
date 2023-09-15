@@ -6,15 +6,18 @@ import { useChecked } from 'state/transactoins'
 import { theme } from 'theme'
 import Navigation from './components/navigation'
 import Routes from './components/routes'
+import { useCategories } from 'state/categories'
 
 function Auth(props: {
   children?: React.ReactNode
 }) {
 
   const { getRows } = useChecked()
+  const { getCategories } = useCategories()
   
   useEffect(() => {
     getRows()
+    getCategories()
   }, [])
 
   return (

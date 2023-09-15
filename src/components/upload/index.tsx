@@ -37,7 +37,6 @@ function Upload() {
       header: true,
       skipEmptyLines: true,
       complete: function (results) {
-
         // Iterating data to get column name and their values
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setTransactions(results.data.reduce((prev: any, row) => {

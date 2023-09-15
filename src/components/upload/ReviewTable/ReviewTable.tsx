@@ -7,13 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useRecoilValue } from 'recoil';
-import { getTransactionList } from 'state';
+import { getUnCheckedTransactionList } from 'state';
 import { Catgeory } from './Catgeory';
 
 type Props = {}
 
 export function ReviewTable({}: Props) {
-    const transactionList = useRecoilValue(getTransactionList);
+    const transactionList = useRecoilValue(getUnCheckedTransactionList);
 
     if (!transactionList.length) {
         return (
