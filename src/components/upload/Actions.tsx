@@ -1,9 +1,11 @@
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot'
 import CloudSyncIcon from '@mui/icons-material/CloudSync'
-import { Button, styled, css } from '@mui/material'
-import { useChecked } from 'state/transactoins'
+import { Button, styled, css, Alert } from '@mui/material'
+import { checkedTranastionsAtom, useChecked } from 'state/transactoins'
 import { useRecoilValue } from 'recoil'
 import { getUnCheckedTransactionList } from 'state'
+import { useEffect, useState } from 'react'
+import { theme } from 'theme'
 
 const VisuallyHiddenInput = styled('input')`
   clip: rect(0 0 0 0);
@@ -19,7 +21,11 @@ const VisuallyHiddenInput = styled('input')`
 
 const style = css({
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  div: {
+    display: 'flex',
+    gap: theme.spacing(1)
+  }
 })
 
 type Props = {
@@ -28,35 +34,57 @@ type Props = {
 }
 
 function Actions({ onChange }: Props) {
+  const [hasntCheckedAllTransactions, setHasntCheckedAllTransactions] = useState(false)
   const { addRows } = useChecked()
   const transactionList = useRecoilValue(getUnCheckedTransactionList)
+  const checkedTransactions = useRecoilValue(checkedTranastionsAtom)
 
   const upload = () => {
-    addRows(transactionList)
+    const t = transactionList.filter(transaction => {
+      if (transaction.category && !checkedTransactions[transaction.id!]) {
+        return true
+      } else {
+        setHasntCheckedAllTransactions(true)
+      }
+    })
+    addRows(t)
   }
+
+  useEffect(() => {
+    if (hasntCheckedAllTransactions) {
+      setTimeout(() => {
+        setHasntCheckedAllTransactions(false)
+      }, 3000);
+    }
+  }, [hasntCheckedAllTransactions])
 
   return (
     <aside css={style}>
-      <Button
-        component="label"
-        variant="contained"
-        startIcon={<TroubleshootIcon />}
-        onChange={onChange}
-        href="#file-upload"
-      >
-        Upload a file
-        <VisuallyHiddenInput type="file" />
-      </Button>
+      <div>
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<TroubleshootIcon />}
+          onChange={onChange}
+          href="#file-upload"
+        >
+          Upload a file
+          <VisuallyHiddenInput type="file" />
+        </Button>
 
-      <Button
-        component="label"
-        variant="contained"
-        color="secondary"
-        startIcon={<CloudSyncIcon />}
-        onClick={upload}
-      >
-        Submit
-      </Button>
+        <Button
+          component="label"
+          variant="contained"
+          color="secondary"
+          startIcon={<CloudSyncIcon />}
+          onClick={upload}
+        >
+          Submit
+        </Button>
+      </div>
+      {
+        hasntCheckedAllTransactions && <Alert severity="info">Only unsubmitted transaction with a category will be sent</Alert>
+      }
     </aside>
   )
 }
