@@ -21,7 +21,7 @@ export function useChecked() {
   }
 
   const getRows = () => {
-    fetch('https://sheetdb.io/api/v1/ppx4v32es5kzo?sheet=data')
+    fetch('https://sheetdb.io/api/v1/ppx4v32es5kzo?sheet=data&sort_by=date')
       .then((response) => response.json())
       .then((data: Transaction[]) => setTransactions(data
         .reduce((previous: any, current) => {

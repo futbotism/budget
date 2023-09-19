@@ -5,6 +5,7 @@ import { Transaction, useUnchecked } from 'state';
 import { theme } from 'theme';
 import Actions from './Actions';
 import { ReviewTable } from './ReviewTable';
+import { DateTime } from "luxon";
 
 const styles = css({
   display: 'grid',
@@ -49,7 +50,7 @@ function Upload() {
           const id = btoa(JSON.stringify(transaction))
           prev[id] = {
             id,
-            date: row['Date'],
+            date: DateTime.fromFormat(row['Date'], 'DD/MM/YYYY').toISODate(),
             debit: row['Debit Amount'],
             narrative: row['Narrative'],
             type: row['Categories'],
