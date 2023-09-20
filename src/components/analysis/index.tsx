@@ -1,18 +1,33 @@
 import { useRecoilValue } from 'recoil'
 import { getCheckedTransactionList } from 'state'
-import { getAnalysis } from './analysis.selector'
+import { getAnalysisList } from './analysis.selector'
 
 function Analysis() {
   const transactions = useRecoilValue(getCheckedTransactionList)
-  const analysis = useRecoilValue(getAnalysis)
+  const analysis = useRecoilValue(getAnalysisList)
 
   console.log(analysis)
 
   return (
     <main>
-      {transactions.map(expense => <p key={expense.id}>{expense.narrative}</p>)}
+      {JSON.stringify(analysis)}
     </main>
   )
 }
 
 export default Analysis
+
+// lysis.map(([yearId, years]) => {
+//   return <div key={yearId}>
+//     debugger
+//     {years.map(months => {
+//       return <div>
+//         {months.map(days => {
+//           return <div>
+//             {days.total}
+//           </div>
+//         })}
+//       </div>
+//     })}
+//   </div>
+// })}
