@@ -48,9 +48,12 @@ function Upload() {
             type: row['Categories'],
           }
           const id = btoa(JSON.stringify(transaction))
+
+          const date = DateTime.fromFormat(row['Date'], 'dd/MM/yyyy').toISODate()
+
           prev[id] = {
             id,
-            date: DateTime.fromFormat(row['Date'], 'DD/MM/YYYY').toISODate(),
+            date,
             debit: row['Debit Amount'],
             narrative: row['Narrative'],
             type: row['Categories'],

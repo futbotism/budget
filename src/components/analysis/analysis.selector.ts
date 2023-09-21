@@ -3,7 +3,7 @@ import { selector } from "recoil";
 import { Transaction, getCheckedTransactionList } from "state";
 
 
-interface Day {
+export interface Day {
     transactions: Transaction[]
     total: number
 }

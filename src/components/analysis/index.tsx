@@ -5,7 +5,7 @@ import { getAnalysisList } from './analysis.selector'
 import Month from './month'
 import Week from './week'
 import Year from './year'
-
+import Days from './days'
 
 const style = css({
   height: 'calc(100vh - 75px)',
@@ -27,7 +27,7 @@ function Analysis() {
             <Month key={month.id}>
               {month.weeks.map(week =>
                 <Week key={week.id}>
-                  {JSON.stringify(week.days)}
+                  <Days days={week.days} />
                 </Week>
               )}
             </Month>
