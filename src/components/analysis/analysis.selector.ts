@@ -18,7 +18,13 @@ export const getAnalysisList = selector({
                     .map(([val, z]) => {
                         return {
                             id: val,
-                            weeks: z
+                            weeks: Object.entries(z)
+                                .map(([vv, qw]) => {
+                                    return {
+                                        id: vv,
+                                        days: qw
+                                    }
+                                })
                         }
                     })
             }
@@ -35,10 +41,10 @@ export const getAnalysis = selector({
         transactions.forEach(transaction => {
             const date = DateTime.fromISO(transaction.date);
             
-            const weekDayKey = `d_${date.weekdayLong}`
-            const weekNumberKey = `w_${date.weekNumber}`
-            const monthKey = `m_${date.monthLong}`
-            const yearKey = `y_${date.year}`
+            const weekDayKey = `${date.weekdayShort}`
+            const weekNumberKey = `${date.weekNumber}`
+            const monthKey = `${date.monthShort}`
+            const yearKey = `${date.year}`
 
             analysis[yearKey] = analysis[yearKey] ?? {}
             analysis[yearKey][monthKey] = analysis[yearKey][monthKey] ?? {}

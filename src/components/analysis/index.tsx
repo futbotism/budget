@@ -1,33 +1,42 @@
+import { css } from '@emotion/react'
 import { useRecoilValue } from 'recoil'
-import { getCheckedTransactionList } from 'state'
+import { theme } from 'theme'
 import { getAnalysisList } from './analysis.selector'
+import Month from './month'
+import Week from './week'
+import Year from './year'
+
+
+const style = css({
+  height: 'calc(100vh - 75px)',
+  border: 'solid 1px red',
+  margin: theme.spacing(2),
+  padding: theme.spacing(2)
+})
 
 function Analysis() {
-  const transactions = useRecoilValue(getCheckedTransactionList)
   const analysis = useRecoilValue(getAnalysisList)
 
   console.log(analysis)
 
   return (
-    <main>
-      {JSON.stringify(analysis)}
+    <main css={style}>
+      {analysis.map(years =>
+        <Year key={years.id}>
+          {years.months.map(month =>
+            <Month key={month.id}>
+              {month.weeks.map(week =>
+                <Week key={week.id}>
+                  {JSON.stringify(week.days)}
+                </Week>
+              )}
+            </Month>
+          )}
+        </Year>
+      )}
     </main>
   )
 }
 
 export default Analysis
 
-// lysis.map(([yearId, years]) => {
-//   return <div key={yearId}>
-//     debugger
-//     {years.map(months => {
-//       return <div>
-//         {months.map(days => {
-//           return <div>
-//             {days.total}
-//           </div>
-//         })}
-//       </div>
-//     })}
-//   </div>
-// })}
