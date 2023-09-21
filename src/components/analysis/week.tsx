@@ -4,10 +4,10 @@ import { getAnalysisList } from './analysis.selector'
 import { css } from '@emotion/react'
 import { theme } from 'theme'
 import React from 'react'
-import { Card } from '@mui/material'
+import { Card, Typography } from '@mui/material'
 
 const style = css({
-  display: 'flex',
+  display: 'grid',
   width: '400px',
   margin: theme.spacing(2),
   padding: theme.spacing(2),
@@ -23,7 +23,10 @@ function Week(props: Props) {
 
   return (
     <Card css={style}>
-      {props.children}
+      <Typography>Week: 52</Typography>
+      <div>
+        {props.children}
+      </div>
     </Card>
   )
 }
