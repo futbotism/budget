@@ -1,16 +1,10 @@
 import { css } from '@emotion/react'
-import { Divider, Typography } from '@mui/material'
 import React from 'react'
-import { theme } from 'theme'
 import { DayI } from './analysis.selector'
 import Day from './day'
-import Purchase from './purchase'
 
 const style = css({
   display: 'grid',
-  border: 'solid 1px green',
-  margin: theme.spacing(2),
-  padding: theme.spacing(2),
   section: {
     '> div': {
       display: 'grid',

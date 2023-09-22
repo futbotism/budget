@@ -8,7 +8,6 @@ import Days from './days'
 const style = css({
   display: 'grid',
   width: '400px',
-  margin: theme.spacing(2),
   padding: theme.spacing(2),
 })
 

@@ -1,15 +1,11 @@
 import { css } from '@emotion/react'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
-import { theme } from 'theme'
 import { DayI, getAnalysisList } from './analysis.selector'
 import Week from './week'
 
 const style = css({
-  display: 'flex',
-  border: 'solid 1px green',
-  margin: theme.spacing(2),
-  padding: theme.spacing(2),
+  display: 'flex'
 })
 
 type Props = React.PropsWithChildren<{

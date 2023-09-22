@@ -7,7 +7,7 @@ import { theme } from 'theme';
 
 const style = css({
   display: 'grid',
-  marginBottom: theme.spacing(1),
+  marginBottom: theme.spacing(2),
   div: {
     display: 'flex',
     gap: theme.spacing(0.5),
