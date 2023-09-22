@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { Tooltip } from '@mui/material'
+import { Chip, Tooltip } from '@mui/material'
 import Icon from '@mui/material/Icon'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
@@ -10,8 +10,6 @@ import { theme } from 'theme'
 const style = css({
   display: 'grid',
   justifyItems: 'center',
-  borderRadius: '50%',
-  border: 'solid 1px green',
   padding: theme.spacing(0.5),
 })
 
@@ -22,15 +20,16 @@ type Props = React.PropsWithChildren<{
 function Purchase(props: Props) {
   const catgeoriesRecord = useRecoilValue(getCategoiresRecord)
 
+  const category = props.transaction.category
+    ? catgeoriesRecord[props.transaction.category]
+    : undefined
+
   return (
-    <>
-      <Tooltip title={props.transaction.narrative}>
-        <div css={style}>
-          {props.transaction.category && <Icon>{catgeoriesRecord[props.transaction.category]?.icon}</Icon>}
-          <p>{props.transaction.debit}</p>
-        </div>
-      </Tooltip>
-    </>
+    <Tooltip title={props.transaction.narrative}>
+      <Chip style={{
+        background: category?.color
+      }} label={props.transaction.debit} css={style} icon={props.transaction.category && <Icon>{category?.icon}</Icon>} />
+    </Tooltip>
   )
 }
 

@@ -2,7 +2,8 @@ import { css } from '@emotion/react'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { theme } from 'theme'
-import { getAnalysisList } from './analysis.selector'
+import { DayI, getAnalysisList } from './analysis.selector'
+import Week from './week'
 
 const style = css({
   display: 'flex',
@@ -11,7 +12,15 @@ const style = css({
   padding: theme.spacing(2),
 })
 
-type Props = React.PropsWithChildren<{}>;
+type Props = React.PropsWithChildren<{
+  month: {
+    id: string;
+    weeks: {
+      id: string;
+      days: Record<string, DayI>;
+    }[];
+  }
+}>;
 
 function Month(props: Props) {
   const analysis = useRecoilValue(getAnalysisList)
@@ -20,7 +29,9 @@ function Month(props: Props) {
 
   return (
     <main css={style}>
-      {props.children}
+      {
+        props.month.weeks.map(week => <Week week={week} key={week.id}/>)
+      }
     </main>
   )
 }

@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
+import { Divider, Typography } from '@mui/material'
 import React from 'react'
 import { theme } from 'theme'
-import { Day } from './analysis.selector'
+import { DayI } from './analysis.selector'
+import Day from './day'
 import Purchase from './purchase'
-import { Typography, Divider } from '@mui/material'
 
 const style = css({
   display: 'grid',
@@ -19,7 +20,7 @@ const style = css({
 })
 
 type Props = React.PropsWithChildren<{
-  days: Record<string, Day>
+  days: Record<string, DayI>
 }>;
 
 function Days(props: Props) {
@@ -27,69 +28,13 @@ function Days(props: Props) {
   return (
     <main css={style}>
       <main>
-        <section>
-          <Typography>Mo</Typography>
-          <Divider />
-          <div>
-            {props.days['Mon']?.transactions.map(
-              transaction => <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>Tu</Typography>
-          <Divider />
-          <div>
-            {props.days['Tue']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>We</Typography>
-          <Divider />
-          <div>
-            {props.days['Wed']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>Th</Typography>
-          <Divider />
-          <div>
-            {props.days['Thu']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>Fr</Typography>
-          <Divider />
-          <div>
-            {props.days['Fri']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>Sa</Typography>
-          <Divider />
-          <div>
-            {props.days['Sat']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
-        <section>
-          <Typography>Su</Typography>
-          <Divider />
-          <div>
-            {props.days['Sun']?.transactions.map(transaction =>
-              <Purchase key={transaction.narrative} transaction={transaction} />
-            )}
-          </div>
-        </section>
+        <Day day={props.days['Mon']} name='Mon'/>
+        <Day day={props.days['Tue']} name='Tue'/>
+        <Day day={props.days['Wed']} name='Wed'/>
+        <Day day={props.days['Thu']} name='Thu'/>
+        <Day day={props.days['Fri']} name='Fri'/>
+        <Day day={props.days['Sat']} name='Sat'/>
+        <Day day={props.days['Sun']} name='Sun'/>
       </main>
       <footer>
         {props.days['Mon']?.total}

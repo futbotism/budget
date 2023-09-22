@@ -1,10 +1,9 @@
-import { useRecoilValue } from 'recoil'
-import { getCheckedTransactionList } from 'state'
-import { getAnalysisList } from './analysis.selector'
 import { css } from '@emotion/react'
-import { theme } from 'theme'
-import React from 'react'
 import { Card, Typography } from '@mui/material'
+import React from 'react'
+import { theme } from 'theme'
+import { DayI } from './analysis.selector'
+import Days from './days'
 
 const style = css({
   display: 'grid',
@@ -13,19 +12,20 @@ const style = css({
   padding: theme.spacing(2),
 })
 
-type Props = React.PropsWithChildren<{}>;
+type Props = React.PropsWithChildren<{
+  week: {
+    id: string;
+    days: Record<string, DayI>;
+  }
+}>;
 
 function Week(props: Props) {
-  const transactions = useRecoilValue(getCheckedTransactionList)
-  const analysis = useRecoilValue(getAnalysisList)
-
-  console.log(analysis)
 
   return (
     <Card css={style}>
-      <Typography>Week: 52</Typography>
+      <Typography variant='overline'>Week: 52</Typography>
       <div>
-        {props.children}
+        <Days days={props.week.days} />
       </div>
     </Card>
   )
