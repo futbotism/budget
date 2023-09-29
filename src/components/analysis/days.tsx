@@ -30,9 +30,6 @@ function Days(props: Props) {
         <Day day={props.days['Sat']} name='Sat'/>
         <Day day={props.days['Sun']} name='Sun'/>
       </main>
-      <footer>
-        {props.days['Mon']?.total}
-      </footer>
     </main>
   )
 }

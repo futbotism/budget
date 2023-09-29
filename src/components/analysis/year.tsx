@@ -1,29 +1,40 @@
 import { css } from '@emotion/react'
+import { Typography } from '@mui/material'
 import React from 'react'
-import { useRecoilValue } from 'recoil'
 import { theme } from 'theme'
-import { getAnalysisList } from './analysis.selector'
+import Month from './month'
+import { DayI } from './analysis.selector'
 
 const style = css({
   display: 'flex',
-  border: 'solid 1px red',
-  margin: theme.spacing(2),
-  padding: theme.spacing(2),
+  gap: theme.spacing(2),
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
 })
 
-type Props = React.PropsWithChildren<{}>;
+type Props = React.PropsWithChildren<{
+  year: {
+    id: string;
+    months: {
+      id: string;
+      weeks: {
+        id: string;
+        days: Record<string, DayI>;
+      }[];
+    }[];
+  }
+}>;
 
 function Year(props: Props) {
-  const analysis = useRecoilValue(getAnalysisList)
-
-  console.log(analysis)
-
   return (
-    <main css={style}>
-      {props.children}
-    </main>
+    <>
+      <Typography color='GrayText' variant='subtitle2'>{props.year.id}</Typography>
+      <main css={style}>
+        {props.year.months.map(month =>
+          <Month key={month.id} month={month} />
+        )}
+      </main>
+    </>
   )
 }
 
 export default Year
-

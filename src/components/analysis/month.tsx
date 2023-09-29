@@ -3,9 +3,18 @@ import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { DayI, getAnalysisList } from './analysis.selector'
 import Week from './week'
+import { Typography } from '@mui/material'
+import { theme } from 'theme'
 
 const style = css({
-  display: 'flex'
+  display: 'grid',
+  gridTemplateRows: '40px 1fr',
+  alignItems: 'start',
+  article: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    gap: theme.spacing(2)
+  }
 })
 
 type Props = React.PropsWithChildren<{
@@ -25,9 +34,10 @@ function Month(props: Props) {
 
   return (
     <main css={style}>
-      {
-        props.month.weeks.map(week => <Week week={week} key={week.id}/>)
-      }
+      <Typography textTransform='uppercase' color='GrayText' variant='h6'>{props.month.id}</Typography>
+      <article>
+        {props.month.weeks.map(week => <Week week={week} key={week.id} />)}
+      </article>
     </main>
   )
 }

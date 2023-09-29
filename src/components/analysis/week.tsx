@@ -7,8 +7,11 @@ import Days from './days'
 
 const style = css({
   display: 'grid',
+  gridTemplateRows: '40px 1fr',
+  alignItems: 'start',
   width: '400px',
   padding: theme.spacing(2),
+  background: theme.palette.grey[100],
 })
 
 type Props = React.PropsWithChildren<{
@@ -22,7 +25,7 @@ function Week(props: Props) {
 
   return (
     <Card css={style}>
-      <Typography variant='overline'>Week: 52</Typography>
+      <Typography variant='overline'>Week: {props.week.id}</Typography>
       <div>
         <Days days={props.week.days} />
       </div>

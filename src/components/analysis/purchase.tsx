@@ -8,9 +8,13 @@ import { getCategoiresRecord } from 'state/categories/selectors'
 import { theme } from 'theme'
 
 const style = css({
-  display: 'grid',
+  display: 'flex',
   justifyItems: 'center',
+  color: 'white',
   padding: theme.spacing(0.5),
+  span: {
+    color: 'white!important',
+  }
 })
 
 type Props = React.PropsWithChildren<{
