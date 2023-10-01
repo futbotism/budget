@@ -14,6 +14,13 @@ const style = css({
   padding: theme.spacing(0.5),
   span: {
     color: 'white!important',
+    '&.MuiChip-label': {
+      lineHeight: '15px'
+    },
+    '&.material-icons': {
+      fontSize: '12px',
+      marginBottom: '2px'
+    }
   }
 })
 

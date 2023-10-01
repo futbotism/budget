@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import { Card, CardContent, Divider, Typography } from '@mui/material';
+import { DateTime } from 'luxon';
 import React from 'react';
 import { theme } from 'theme';
 import { DayI } from './analysis.selector';
 import Purchase from './purchase';
-import { NumericFormat } from 'react-number-format';
+import Total from './total';
 
 const style = css({
   display: 'grid',
@@ -29,14 +30,14 @@ type Props = React.PropsWithChildren<{
 
 function Day(props: Props) {
 
+  const date = DateTime.fromISO(props.day?.transactions[0].date)
+
   return (
     <Card css={style}>
       <CardContent>
         <header>
-          <Typography variant='caption'>{props.name}</Typography>
-          <Typography variant='overline'>
-            <NumericFormat displayType="text" value={props.day?.total} prefix={'$'} decimalScale={2} fixedDecimalScale/>
-          </Typography>
+          <Typography variant='caption'>{date.isValid ? date.toFormat('ccc, d/L') : props.name}</Typography>
+          <Total total={props.day?.total} />
         </header>
         <Divider />
         <div className='transactions'>

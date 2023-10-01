@@ -25,7 +25,7 @@ function Week(props: Props) {
 
   return (
     <Card css={style}>
-      <Typography variant='overline'>Week: {props.week.id}</Typography>
+      <Typography>Week: {props.week.id}</Typography>
       <div>
         <Days days={props.week.days} />
       </div>
