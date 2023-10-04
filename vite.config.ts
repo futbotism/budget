@@ -13,6 +13,6 @@ export default defineConfig({
     include: ['**/test.{ts,tsx}']
   },
   build: {
-    outDir: 'build'
+    outDir: 'docs'
   }
 })
