@@ -7,6 +7,7 @@ import { DayI } from './analysis.selector'
 
 const style = css({
   display: 'flex',
+  flexDirection: 'row-reverse',
   gap: theme.spacing(2),
   padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
 })

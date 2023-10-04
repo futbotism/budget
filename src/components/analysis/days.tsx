@@ -70,13 +70,13 @@ function Days(props: Props) {
         </Accordion>
       </header>
       <main>
-        <Day day={props.days['Mon']} name='Mon' />
-        <Day day={props.days['Tue']} name='Tue' />
-        <Day day={props.days['Wed']} name='Wed' />
-        <Day day={props.days['Thu']} name='Thu' />
-        <Day day={props.days['Fri']} name='Fri' />
-        <Day day={props.days['Sat']} name='Sat' />
-        <Day day={props.days['Sun']} name='Sun' />
+        {props.days['Mon']?.total && <Day day={props.days['Mon']} name='Mon' />}
+        {props.days['Tue']?.total && <Day day={props.days['Tue']} name='Tue' />}
+        {props.days['Wed']?.total && <Day day={props.days['Wed']} name='Wed' />}
+        {props.days['Thu']?.total && <Day day={props.days['Thu']} name='Thu' />}
+        {props.days['Fri']?.total && <Day day={props.days['Fri']} name='Fri' />}
+        {props.days['Sat']?.total && <Day day={props.days['Sat']} name='Sat' />}
+        {props.days['Sun']?.total && <Day day={props.days['Sun']} name='Sun' />}
       </main>
     </main>
   )
