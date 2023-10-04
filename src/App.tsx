@@ -36,7 +36,7 @@ function Auth(props: {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/budget'>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
           <Navigation />
