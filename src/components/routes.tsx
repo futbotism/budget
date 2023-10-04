@@ -5,8 +5,8 @@ import Upload from './upload'
 function Routing() {
     return (
         <Routes>
-            <Route path="/" element={<Analysis />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="*" element={<Analysis />} />
         </Routes>
     )
 }
