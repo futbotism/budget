@@ -31,11 +31,11 @@ function Navigation() {
 
         {isAuthed
           && <>
-            <Link to='/'>
+            <Link to='/budget'>
               <Button variant='contained' color='secondary'>Analysis</Button>
             </Link>
 
-            <Link to='/upload'>
+            <Link to='/budget/upload'>
               <Button variant='contained' color='secondary'>Upload</Button>
             </Link>
 
