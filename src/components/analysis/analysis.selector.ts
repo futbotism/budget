@@ -38,7 +38,7 @@ export const getAnalysis = selector({
     get: ({ get }) => {
         const transactions = get(getCheckedTransactionList)
         const cateories = get(categoryAtom)
-        const analysis: Record<string, Record<string, Record<string, Record<string, Day>>>> = {};
+        const analysis: Record<string, Record<string, Record<string, Record<string, DayI>>>> = {};
 
         transactions.forEach(transaction => {
             const date = DateTime.fromISO(transaction.date);
@@ -59,7 +59,7 @@ export const getAnalysis = selector({
                     ],
                     categoryTotals: {
                         ...analysis[yearKey][monthKey][weekNumberKey][weekDayKey].categoryTotals,
-                        [transaction.category as string]: analysis[yearKey][monthKey][weekNumberKey][weekDayKey].categoryTotals[transaction.category] + Number(transaction.debit)
+                        [transaction.category as string]: analysis[yearKey][monthKey][weekNumberKey][weekDayKey].categoryTotals[transaction.category!] + Number(transaction.debit)
                     },
                     total: analysis[yearKey][monthKey][weekNumberKey][weekDayKey].total += Number(transaction.debit)
                 }
