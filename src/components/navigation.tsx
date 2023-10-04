@@ -1,40 +1,48 @@
 import { Button, Typography, css } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { getIsAuthed, sheetIdAtom } from 'state'
 import { theme } from '../theme'
-import { Link, NavLink } from 'react-router-dom'
 
 const styles = css({
-    height: '60px',
-    background: theme.palette.primary.main,
+  height: '60px',
+  background: theme.palette.primary.main,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: `0 ${theme.spacing(2)}`,
+  'aside': {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'end',
     alignItems: 'center',
-    padding: `0 ${theme.spacing(2)}`,
-    'aside': {
-      display: 'flex',
-      justifyContent: 'end',
-      alignItems: 'center',
-      gap: theme.spacing(2)
-    }
+    gap: theme.spacing(2)
+  }
 })
 
 function Navigation() {
+  const isAuthed = useRecoilValue(getIsAuthed)
+  const setSheetId = useSetRecoilState(sheetIdAtom)
+
   return (
     <nav css={styles}>
-        <Typography variant='h5'>Budget</Typography>
+      <Typography variant='h5'>Budget</Typography>
 
-        <aside>
-          <Link to='/'>
-            <Button variant='contained' color='secondary'>Analysis</Button>
-          </Link>
-          
-          <Link to='/review'>
-            <Button variant='contained' color='secondary'>Review</Button>
-          </Link>
+      <aside>
 
-          <Link to='/upload'>
-            <Button variant='contained' color='secondary'>Upload</Button>
-          </Link>
-        </aside>
+        {isAuthed
+          && <>
+            <Link to='/'>
+              <Button variant='contained' color='secondary'>Analysis</Button>
+            </Link>
+
+            <Link to='/upload'>
+              <Button variant='contained' color='secondary'>Upload</Button>
+            </Link>
+
+            <Button onClick={() => setSheetId('')} variant='contained' color='secondary'>Logout</Button>
+          </>
+        }
+      </aside>
     </nav>
   )
 }

@@ -1,14 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
 import Analysis from './analysis'
-import Review from './review'
+import Login from './login'
 import Upload from './upload'
+import { useRecoilValue } from 'recoil'
+import { getIsAuthed } from 'state'
 
 function Routing() {
+  const isAuthed = useRecoilValue(getIsAuthed)
     return (
         <Routes>
-            <Route path="/" element={<Analysis />} />
-            <Route path="/review" element={<Review />} />
-            <Route path="/upload" element={<Upload />} />
+            {isAuthed
+                ? <>
+                    <Route path="/" element={<Analysis />} />
+                    <Route path="/upload" element={<Upload />} />
+                </>
+                : <>
+                    <Route path="/" element={<Login />} />
+                </>}
         </Routes>
     )
 }

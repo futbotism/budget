@@ -3,6 +3,8 @@ import { useRecoilValue } from 'recoil'
 import { theme } from 'theme'
 import { getAnalysisList } from './analysis.selector'
 import Year from './year'
+import { useEffect } from 'react'
+import { useChecked } from 'state'
 
 const style = css({
   height: 'calc(100vh - 75px)',
@@ -14,6 +16,11 @@ const style = css({
 
 function Analysis() {
   const analysis = useRecoilValue(getAnalysisList)
+  const { getRows } = useChecked()
+
+  useEffect(() => {
+    getRows()
+  }, [])
 
   return (
     <main css={style}>
