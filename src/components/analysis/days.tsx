@@ -12,6 +12,9 @@ import { Accordion } from '@mui/material';
 const style = css({
   display: 'grid',
   header: {
+    '.MuiAccordionSummary-content': {
+      margin: '0'
+    },
     section: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -60,7 +63,9 @@ function Days(props: Props) {
             <Typography variant='overline'>Categories</Typography>
           </AccordionSummary>
           <AccordionDetails>
-          {categories.map(category =>
+          {categories
+            .filter(category => weekCategoriesTotal[category.name])
+            .map(category =>
             <section key={category.name}>
               <Typography variant='overline'>{category.name}</Typography>
               <Total total={weekCategoriesTotal[category.name]} />

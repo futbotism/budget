@@ -66,7 +66,9 @@ export const getAnalysis = selector({
                 : {
                     total: Number(transaction.debit),
                     categoryTotals: cateories.reduce((prev, curr) => {
-                        prev[curr.name] = 0
+                        prev[curr.name] = transaction.category == curr.name
+                            ? Number(transaction.debit)
+                            : 0
                         return prev
                       }, {} as Record<string, number>),
                     transactions: [transaction]
