@@ -11,11 +11,11 @@ function Routing() {
         <Routes>
             {isAuthed
                 ? <>
-                    <Route path="/" element={<Analysis />} />
-                    <Route path="/upload" element={<Upload />} />
+                    <Route path="/budget/" element={<Analysis />} />
+                    <Route path="/budget/upload" element={<Upload />} />
                 </>
                 : <>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/budget/" element={<Login />} />
                 </>}
         </Routes>
     )
