@@ -31,6 +31,10 @@ function Navigation() {
 
         {isAuthed
           && <>
+            <Link to='/babies'>
+              <Button variant='contained' color='secondary'>Babies</Button>
+            </Link>
+            
             <Link to='/budget'>
               <Button variant='contained' color='secondary'>Analysis</Button>
             </Link>

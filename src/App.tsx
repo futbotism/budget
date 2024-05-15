@@ -9,6 +9,7 @@ import Routes from './components/routes'
 import { useCategories } from 'state/categories'
 import { getIsAuthed } from 'state'
 import Login from 'components/login'
+import { useBabies } from 'state/babies'
 
 function Auth(props: {
   children?: React.ReactNode
@@ -16,10 +17,12 @@ function Auth(props: {
   const isAuthed = useRecoilValue(getIsAuthed)
   const { getRows } = useChecked()
   const { getCategories } = useCategories()
+  const { getbabies } = useBabies()
 
   useEffect(() => {
     getRows()
     getCategories()
+    getbabies()
   }, [])
 
   return (
